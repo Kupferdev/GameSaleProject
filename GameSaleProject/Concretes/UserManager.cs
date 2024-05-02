@@ -10,16 +10,26 @@ namespace GameSaleProject.Concretes
 {
     public class UserManager : IUserManager
     {
+        IUserCheckManager _userCheckManager;
         List<User> users;
-        public UserManager()
+        public UserManager(IUserCheckManager userCheckManager)
         {
             users = new List<User>();
+            _userCheckManager = userCheckManager;
+
         }
 
         public void Add(User user)
         {
-            users.Add(user);
-            Console.WriteLine(user.FirstName + " kullanıcısı eklendi.");
+            if (_userCheckManager.IfRealUser(user) == true)
+            {
+                users.Add(user);
+                Console.WriteLine("Kayıt oldu");
+            }
+            else
+            {
+                Console.WriteLine("Gerçek kişi değil. Kayıt başarısız!");
+            }
         }
 
         public void Delete(User user)
@@ -50,7 +60,7 @@ namespace GameSaleProject.Concretes
             else
             {
                 Console.WriteLine("Kullanıcı bulunamadı.");
-            }; 
+            };
         }
     }
 }

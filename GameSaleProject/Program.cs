@@ -12,7 +12,7 @@ user.BirthYear = "2000";
 userCheckManager.IfRealUser(user); //True
 
 //Kullanıcı ekleme
-UserManager userManager = new UserManager();
+UserManager userManager = new UserManager(new UserCheckManager());
 userManager.Add(user);
 
 //Kampanya ekleme
